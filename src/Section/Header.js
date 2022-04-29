@@ -13,10 +13,16 @@ import {
   } from '@chakra-ui/react';
   import {FaHome} from 'react-icons/fa';
   import HASOC_2022 from '../Images/HASOC_2022.png';
-  
+  import { useNavigate } from "react-router-dom"
   
   export default function Header() {
-    
+  
+	const navigate = useNavigate();
+	const logout = () => {
+		localStorage.clear();
+		navigate("/")
+	}
+	
     return (
       <>
         <Box px={4} bgColor={"blue.400"}>
@@ -31,16 +37,17 @@ import {
                         src={HASOC_2022}/>
                     <Link
                   p={2}
-                  href={'/Story_Add'}
-                  fontSize={'sm'}
-                  fontWeight={500}
-                  _hover={{ bg: 'blue.100' }}>Story</Link>
-                    <Link
-                  p={2}
                   href={'/User_Details'}
                   fontSize={'sm'}
                   fontWeight={500}
                   _hover={{ bg: 'blue.100' }}>Users</Link>
+					<Link
+                  p={2}
+                  href={'/Story_Add'}
+                  fontSize={'sm'}
+                  fontWeight={500}
+                  _hover={{ bg: 'blue.100' }}>Story</Link>
+                    
               </HStack>
             </HStack>
             <Flex alignItems={'center'}>
@@ -60,7 +67,7 @@ import {
                 </MenuButton>
                 <MenuList>
 
-                    <MenuItem>Logout</MenuItem>
+                    <MenuItem onClick={logout}>Logout</MenuItem>
   
                 </MenuList>
               </Menu>

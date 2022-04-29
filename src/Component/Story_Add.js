@@ -64,7 +64,7 @@ function Story_Add(){
     const token_ = localStorage.getItem("token");
     const role__ = localStorage.getItem("role");
 
-    console.log("Data",token_,role__)
+    
 
     setrole_(role__);
     setToken(token_)
@@ -104,7 +104,7 @@ function Story_Add(){
           </Thead>
           <Tbody>
             {story.map((story) => (
-              <Tr key={story.ID}>
+              <Tr key={story._id}>
                      <Td >
 						{story.title}
                       </Td>
@@ -150,6 +150,8 @@ function Story_Add(){
         </Modal>
         
       </Center>
+	  <br/>
+	  <br/>
       <div style={{position:"fixed",bottom:0,left:0,right:0}} >
         <Footer/>
       </div>

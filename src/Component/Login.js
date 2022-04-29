@@ -18,6 +18,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 
 function Login() {
 	
+	
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -26,6 +27,13 @@ function Login() {
 	const CFaUserAlt = chakra(FaUserAlt);
 	const CFaLock = chakra(FaLock);
 
+	
+	useEffect(()=>{
+		if(localStorage.getItem('id')===1){
+			navigate("/User_Details")
+		}
+	})
+	
 	
 	async function loginUser(credentials) {
     
@@ -49,9 +57,9 @@ function Login() {
 		  email,
 		  password
 		});
-    console.log(response.data)
 		localStorage.setItem("token",response.data.token)
 		localStorage.setItem("role",response.data.user.role)
+		localStorage.setItem("id",response.data.user._id)
 		
 		if (response.data.token) {
 			

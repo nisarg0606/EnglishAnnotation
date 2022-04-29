@@ -70,7 +70,6 @@ function Users() {
     const token_ = localStorage.getItem("token");
     const role__ = localStorage.getItem("role");
 
-    console.log("Data",token_,role)
 
     setrole_(role__);
     setToken(token_)
@@ -106,13 +105,13 @@ function Users() {
               <Th>Name</Th>
               <Th>Email</Th>
               <Th>role</Th>        
-              <Th>Assigned</Th>
-              <Th>Annotated</Th>               
+              {/*<Th>Assigned</Th>
+				<Th>Annotated</Th> */}              
             </Tr>
           </Thead>
           <Tbody>
             {users.map((user) => (
-              <Tr key={user.ID}>
+              <Tr key={user._id}>
                      <Td >
                             {user.name}
                       </Td>
@@ -122,12 +121,12 @@ function Users() {
                       <Td>
 				   {user.role === 1? <Text>Admin</Text>: <Text>User</Text> }
                       </Td>
-                     <Td>
+					  {/*<Td>
                         {user.assignedTweets}
                      </Td>
                      <Td>
                        {user.annotatedTweets}
-                     </Td>
+					  </Td>*/}
                 </Tr>))}
               </Tbody>
             
@@ -183,6 +182,8 @@ function Users() {
         </Modal>
         
       </Center>
+	  <br/>
+	  <br/>
       <div style={{position:"fixed",bottom:0,left:0,right:0}} >
         <Footer/>
       </div>

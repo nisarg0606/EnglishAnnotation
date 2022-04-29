@@ -9,50 +9,62 @@ Td,
 Tr,
 Thead,
 Th,
+Select,
+VStack,
+HStack,
 Button} from "@chakra-ui/react";
 
 function Annotation(){
 	
-  function handleLabel(Label){
-		let details={Label}
-	    fetch('http://localhost:3000/submit',{
+  const [flag,setFlag]=useState(0);
+	
+  const handleLabel = async(main_tweet_id,tweet_id)=>{
+	    setFlag(flag+1)
+	    const token_ = localStorage.getItem("token");
+		const role__ = localStorage.getItem("role");
+	
+		let details={main_tweet_id,tweet_id,label}
+	    await fetch('http://localhost:3000/tweets/submit',{
 		method:'POST',
 		headers: {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjJhZWI5YjAxOGJjNDJmMDVlOGYyMTMiLCJyb2xlIjoiMiIsImlhdCI6MTY1MDk1NzkzMX0.ytvkwG4RGhzGrNBlDqkiQYkEl-tv975d2HFRbX47wF4',
+		'Authorization': `Bearer ${token_}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(details)
     })
-      .then(data => {window.location.reload()})
-	  .catch(data => {console.log(data)})
+	if(flag===5){
+		window.location.reload()
+		setFlag(0)
+	}
   }
   
-  
-  const [label, setLabel] = useState();
+  const [label, setLabel] = useState([]);
+  const [tweet, setTweets] = useState([]);
    useEffect(() => {
-		fetch("http://localhost:3000/users/assigned-tweets?thirdAnnotator=false",
+
+	
+    const token_ = localStorage.getItem("token");
+    const role__ = localStorage.getItem("role");
+	
+	fetch("http://localhost:3000/users/assigned-tweets?thirdAnnotator=false",
 		{
 		method: 'GET',
 		headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjJhZWI5YjAxOGJjNDJmMDVlOGYyMTMiLCJyb2xlIjoiMiIsImlhdCI6MTY1MDk1NzkzMX0.ytvkwG4RGhzGrNBlDqkiQYkEl-tv975d2HFRbX47wF4',
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token_}`,
 		}}
 		)
       .then(res => res.json())
       .then(
         (result) => {
           console.log(result)
-          var temp = [];
-          temp.push(result.data)
-          console.log("Tempo array",temp)
-		      setLabel(temp)
+		  setTweets(result.data.tweets)
         })
    },[])
   return(
     <>
       <AHeader/>
-      <TableContainer padding={'20px'}>
-        <Table >
+	  <VStack padding={'20px'}>
+        <Table>
           <Thead>
             <Tr>
               <Th>ID</Th>
@@ -61,24 +73,35 @@ function Annotation(){
             </Tr>
           </Thead>
 		  <Tbody>
-            {label && label.map((labels) => (
-              <Tr key={labels.ID}>
+		  {tweet.map((tweets) => (
+              <Tr key={tweets.tweets_id} >
                      <Td >
-                            {labels.tweets.tweet_id}
+						{tweets.tweet_id}
                       </Td>
                       <Td >
-                            {labels.tweets.tweet}
+                            {tweets.tweet}
                       </Td>
-                      <Td padding={'10px'}>
-							<Button bgColor={"red.200"} onClick={handleLabel("HOF")} >HOF</Button>
+                      <Td padding={'10px'} >
+							<form>
+							<HStack>
+							<Select  placeholder='label' onChange={(e) => setLabel(e.target.value)} size="sm" width="60px">
+							  <option value="NOT">NOT</option>
+							  <option value="CHOF">CHOF</option>
+							</Select>
+							
                             <span> </span>
-                            <Button bgColor={"green.200"} onClick={handleLabel("NOT")}>Not</Button> 
-                      </Td>
+							{/*tweets.tweet_id,tweets.tweet_id*/}
+                            <Button bgColor={"green.200"} onClick={()=>{handleLabel(tweets.tweet_id,tweets.tweet_id)}}>Save</Button> 
+							</HStack>
+							</form>
+							
+					  </Td>
                      
-                </Tr>))}
-              </Tbody>            
+		  </Tr>))}
+		   </Tbody>            
         </Table>
-      </TableContainer>
+      </VStack>
+	  
       <div style={{position:"fixed",bottom:0,left:0,right:0}} >
         <Footer/>
       </div>
