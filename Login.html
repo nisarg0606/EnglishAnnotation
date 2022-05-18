@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HASOC</title>
+	<link href="./css/Login.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script type="text/javascript" src="./js/Login.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
+</head>
+<body>
+	<div class="header">
+        <section id="content">
+          <div class="login">
+            <h1>HASOC Login </h1>
+            <form onsubmit="event.preventDefault()">            
+              <p><input id="email" type="text" name="email" value="" placeholder="Email" required>
+			    <i class="icon fas fa-envelope"></i>
+			  </p>
+              <p><input id="password" type="password" name="password" value="" placeholder="Password" required>
+				<i class="icon fas fa-lock"></i>
+			  </p>
+              <p class="submit"><input type="submit" name="submit" onClick="performLogin()"  href="#"></p>
+            </form>
+          </div>
+        </section>
+      </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

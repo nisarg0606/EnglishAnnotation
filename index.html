@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Annotater</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./css/view_html.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+</head>
+
+<body id="body">
+
+    <!-------------------------------------  NAVBAR  ------------------------------------------------------------>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #007BFF;">
+        <a class="navbar-brand" href="index.html">HASOC 2022</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="comment.html">Comments<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="replies.html">Replies<span class="sr-only"></span></a>
+                </li>
+                
+            </ul>
+            <ul class="nav pull-right align-middle">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="username" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown
+                    </button>
+                    <div class="dropdown-menu sticky-top" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item text-danger" type="button" onclick="logout()">Logout</button>
+
+                    
+                </div>
+            </ul>
+        </div>
+    </nav>    
+    <div id="main_tweet_id" hidden></div>
+    <form id="labels_form">
+        <!--------------------------------------- Tweet Content ---------------------------------------->
+        <!------------------------------------- Main Tweet ---------------------------------------------------->
+        <ul class="list-group affix my-3 sticky-top" id="top_tweet">
+            <li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-primary" id="main_tweet">
+                <span class="w-90">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nulla culpa adipisci, eligendi fugit perspiciatis magni tempora sequi quis doloremque magnam sit excepturi ipsa! Sed unde enim nulla ad corrupti?</span>
+                <div class="btn-group" data-toggle="buttons" >
+                    <label class="btn btn-danger form-check-label">
+                  <input class="form-check-input" type="radio" name="options" id="option1" autocomplete="off">
+                  HOF
+                </label>
+                
+                    <label class="btn btn-success form-check-label">
+                  <input class="form-check-input" type="radio" name="options" id="option2" autocomplete="off"> NOT
+                </label>
+                </div>
+            </li>
+        </ul>
+        </ul>
+    </form>
+
+    <br/>
+    <br/>
+   
+
+    <!----------------------------------------------------------------------------------------------------------------------------->
+
+    <footer class="page-footer font-small fixed-bottom" style="background-color: #007BFF;" >
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-white py-3">© 2022 Copyright:
+            <a href="https://hasocfire.github.io/" class="text-white"> Team HASOC</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <script>
+        checkLogin();
+    </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>
