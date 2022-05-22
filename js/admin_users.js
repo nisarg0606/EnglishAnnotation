@@ -53,6 +53,18 @@ async function add_user() {
 
 
 async function display_users() {
+    // let loader = `<h4>
+    //                 <tr>  
+    //                 <td colspan="4"> 
+    //                     <div class="d-flex justify-content-center">
+    //                     <div class="spinner-border style="width: 20rem; height: 20rem;" role="status">
+    //                         <span class="sr-only">Loading...</span>
+    //                     </div>
+    //                     </div>
+    //                 </td>
+    //                 </tr>
+    //               </h4>`;
+    // document.getElementById('user_table').innerHTML = loader;
     //console.log('in user function');
     url = proxy + '/users/list';
     const response = await fetch(url, {

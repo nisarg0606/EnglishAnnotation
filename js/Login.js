@@ -24,7 +24,7 @@ async function performLogin() {
 		var name = data.data.user.name
         localStorage.setItem("token", token)
         localStorage.setItem('email', email)
-        localStorage.setItem('password', password);
+        // localStorage.setItem('password', password);
         localStorage.setItem('role', role);
         localStorage.setItem('name', name);
         if (role===1) {
@@ -34,22 +34,12 @@ async function performLogin() {
          }
     } else if (response.status === 404) {
         Swal.fire({
-            title: 'Username Does not exist',
-            icon: 'error',
-        })
-    } else if (response.status === 401) {
-        Swal.fire({
-            title: 'You are not admin, behaviour will be reported',
-            icon: 'warning',
-        })
-    } else if (response.status === 402) {
-        Swal.fire({
-            title: 'Opps! Incorrect Password, try again....',
+            title: 'User with this email does not exist.',
             icon: 'error',
         })
     } else if (response.status === 400) {
         Swal.fire({
-            title: 'Bad Request',
+            title: 'Incorrect password',
             icon: 'error',
         })
     } else {

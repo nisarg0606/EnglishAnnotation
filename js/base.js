@@ -8,8 +8,8 @@ async function checkLogin() {
     var body = document.getElementById("body");
     body.style.display = 'none';
     url = proxy + '/login'
-    var token = document.getElementById("token");
-    if (typeof token === "undefined") {
+    var token = localStorage.getItem("token");
+    if (!token) {
         window.location.href = 'Login.html';
     } else {
         //

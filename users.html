@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="./admin_tweets.css">
+    <link rel="stylesheet" href="./css/admin_tweet.css">
     <script type="text/javascript" src="./js/admin_users.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="./js/base.js"></script>
@@ -56,6 +56,19 @@
                                 </tr>
                             </thead>
                             <tbody id="user_table">
+                                                  <h4>
+                                                    <span class="align-middle">
+                                                     <tr>  
+                                                     <td colspan="4"> 
+                                                         <div class="d-flex justify-content-center">
+                                                         <div class="spinner-border" style="width: 10rem; height: 10rem;" role="status">
+                                                             <span class="sr-only">Loading...</span>
+                                                         </div>
+                                                         </div>
+                                                     </td>
+                                                     </tr>
+                                                    </span>
+                                                   </h4>
                                 <script>
                                     display_users();
                                 </script>

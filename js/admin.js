@@ -45,6 +45,8 @@ async function show_tweets_index() {
     user=user_.data
     data = await responce.json();
     console.log(user)
+    // var token=localStorage.getItem("token")
+    // console.log(token)
     if (responce.status === 200) {
         tweet_data = data.data;
         console.log(tweet_data)
@@ -112,10 +114,10 @@ async function assign_users(id) {
     
 
     if (filtered_userList.length === userSet.size) {
-        for (i=0;i<userSet.size;i++){
+        // for (i=0;i<userSet.size;i++){
         fetch(proxy + '/tweets/assign', {
             method: 'post',
-            body: JSON.stringify({ 'tweet_id': id, 'name': filtered_userList[i],"thirdAnnotator": false }),
+            body: JSON.stringify({ 'tweet_id': id, 'name': filtered_userList[(filtered_userList.length-1)],"thirdAnnotator": false }),
             headers: {
                 'Content-type': 'application/json',
                 "Authorization": 'Bearer '+localStorage.getItem("token")
@@ -129,17 +131,23 @@ async function assign_users(id) {
                     timer: 2000
                 })
                 show_tweets_index();
-            } else if (responce.status === 401) {
-                window.location.href = 'login.html';
+            } else if (responce.status === 500) {
+                Swal.fire({
+                    title: 'Please enter single user at a time',
+                    icon: 'error',
+                    timer: 2000
+                })
+            }else{
+                window.location.href = 'Login.html';
             }
-        })}
+        })
     } else {
         alert('cannot be same')
     }
-    
+}
         
 
-}
+// }
 
 
 ///// show stories
@@ -203,16 +211,9 @@ async function add_story() {
                 })
                 showStories();
                 document.getElementById('new_story_name').value = '';
-            } else if (response.status === 401) {
-                window.location.href = 'login.html';
-            } else if (response.status === 403) {
-                Swal.fire({
-                    title: '! Cannot add same story again !!!',
-                    icon: 'warning'
-                })
             } else if (response.status === 400) {
                 Swal.fire({
-                    title: 'Bad Request!!!',
+                    title: 'Story with this title already exists',
                     icon: 'error'
                 })
             } else {
@@ -233,6 +234,20 @@ async function add_story() {
 ////// FIlter Tweets
 async function filter_tweets() {
     //console.log('changed')
+    loader=` <h4>
+                <span class="align-middle">
+                <tr>  
+                <td colspan="7"> 
+                    <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 10rem; height: 10rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+                </td>
+                </tr>
+                </span>
+            </h4>`
+    document.getElementById('tweet_data_body').innerHTML = loader;
     var story_name_ = document.getElementById("filter_story_list").value;
 	console.log(document.getElementById("filter_story_list").value)
     url = proxy + '/tweets/list';
@@ -363,14 +378,14 @@ async function add_tweets() {
                     })
                     .then(response => {
                         //console.log(response)
-                        if (response.status != 200) {
+                        if (response.status === 400) {
                             throw new Error(response.statusText)
                         }
                         return response.json()
                     })
                     .catch(error => {
                         Swal.showValidationMessage(
-                            `Request failed: ${error}`
+                            `Request failed: ${error} Story is mandatory and Upload proper files`
                         )
                     })
             }

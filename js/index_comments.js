@@ -2,14 +2,14 @@ proxy = 'http://3.87.187.229:5000';
 
 async function checkLogin() {
     var name = localStorage.getItem('name');
-    //let password = localStorage.getItem('password');
+    //let password = ('password');
     //let isAdmin = localStorage.getItem('isAdmin');
 
     var body = document.getElementById("body");
     body.style.display = 'none';
     url = proxy + '/login'
-    var token = document.getElementById("token");
-    if (typeof token === "undefined") {
+    var token = localStorage.getItem("token");
+    if (!token) {
         window.location.href = 'Login.html';
     } else {
         //
