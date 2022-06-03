@@ -13,14 +13,14 @@ async function add_user() {
             const name = Swal.getPopup().querySelector('#name').value;
             const email = Swal.getPopup().querySelector('#Email').value;
             const password = Swal.getPopup().querySelector('#password').value;
-            const role = (Swal.getPopup().querySelector('#isadmin').checked) ? 1 : 2;
+            const role = (Swal.getPopup().querySelector('#isadmin').checked)? 1:2;
             //console.log(isadmin)
             return fetch(proxy + `/admin/add-user`, {
                     method: 'post',
                     body: JSON.stringify({ 'name': name, 'email': email, 'password': password, 'role': role }),
                     headers: {
                         'Content-type': 'application/json',
-                        "Authorization": 'Bearer ' + localStorage.getItem("token")
+                        "Authorization": 'Bearer '+localStorage.getItem("token")
                     }
 
                 })
@@ -69,8 +69,8 @@ async function display_users() {
     url = proxy + '/users/list';
     const response = await fetch(url, {
         method: 'get',
-        headers: {
-            "Authorization": 'Bearer ' + localStorage.getItem("token")
+        headers:{
+            "Authorization": 'Bearer '+localStorage.getItem("token")
         }
     });
     if (response.status == 200) {
@@ -86,7 +86,7 @@ async function display_users() {
             } else {
                 icon = '<i class="fas fa-user mr-3"></i>'
             }
-            var id = data[usr]._id;
+			var id=data[usr]._id;
             //icon = '<i class="fas fa-user-cog"></i>'
             tab += `<tr class="candidates-list">
             <td class="title">
@@ -121,18 +121,18 @@ async function display_users() {
     }
 }
 
-function annotate(res, id) {
-    for (i in res) {
-        if (i.tweet_id === id) {
-            return i.annotated
-        }
-    }
-
+function annotate(res,id){
+	for (i in res){
+		if(i.tweet_id===id){
+			return i.annotated
+		}
+	}
+	
 }
 
 
 async function display_tweets_by_users(id) {
-    loader = `    <h4>
+    loader=`    <h4>
                     <span class="align-middle">
                      <tr>  
                      <td colspan="4"> 
@@ -149,37 +149,37 @@ async function display_tweets_by_users(id) {
     url = proxy + '/users/report/' + id;
     let response = await fetch(url, {
         method: 'get',
-        headers: {
+        headers:{
             'Content-type': 'application/json',
-            "Authorization": 'Bearer ' + localStorage.getItem("token")
+            "Authorization": 'Bearer '+localStorage.getItem("token")
         }
     })
-    if (response.status === 200) {
-        var data = await response.json();
-        data = data.data
-        if (data.assgined.length === 0) {
-            tab = `<h1 class="my-3">No Assigned Tweets.......!</h1>`
-        } else {
-            //console.log(data)
-            tab = ``
-            for (key in data.tweets) {
-                tab += `<tr>
+     if (response.status === 200) {
+         var data = await response.json();
+          data = data.data
+         if (data.assgined.length === 0) {
+             tab = `<h1 class="my-3">No Assigned Tweets.......!</h1>`
+         } else {
+             //console.log(data)
+             tab = ``
+			 for (key in data.tweets) {
+                 tab += `<tr>
              <td class="align-middle">${data.tweets[key].story}</td>
              <td class="align-middle">${data.tweets[key].tweet_id}</td>
              <td class="align-middle">${data.tweets[key].tweet}</td>
              <td class="align-middle">
                  <div class=" container justify-content-center">`
-                if (annotate(data.assigned, data.tweets[key].tweet_id) === true) {
-                    icon = `<i class="fas fa-check-circle mr-3 fa-2x">`
-                } else { icon = `<i class="fas fa-clock fa-2x"></i>` }
-                tab += icon
-                tab += `</i></div></td>
+                 if (annotate(data.assigned,data.tweets[key].tweet_id)===true) {
+                     icon = `<i class="fas fa-check-circle mr-3 fa-2x">`
+                 } else { icon = `<i class="fas fa-clock fa-2x"></i>` }
+                 tab += icon
+                 tab += `</i></div></td>
              
          </tr>`
-            }
+             }
 
-        }
-        document.getElementById("show_tweets_for_user").innerHTML = tab;
-    }
+         }
+         document.getElementById("show_tweets_for_user").innerHTML = tab;
+     }
 
 }

@@ -1,6 +1,5 @@
 proxy = 'https://englishannotation.el.r.appspot.com';
 
-
 async function checkLogin() {
     var email = localStorage.getItem('email');
     //let password = localStorage.getItem('password');
