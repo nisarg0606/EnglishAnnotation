@@ -277,7 +277,9 @@ async function displayTweetForAnnotate(tweet_id_) {
 
          }
          
-        }}
+        }
+      
+      }
         
         tab_1+=`<br/>`
         

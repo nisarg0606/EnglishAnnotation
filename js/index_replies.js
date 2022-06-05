@@ -223,7 +223,7 @@ async function displayTweetForAnnotate(tweet_id_) {
                 
                 for (rep_key in data.data.tweets[i].comments[comm_key].replies) {
                   // console.log(data.data.tweets[i]);
-                    if ((data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].annotations)===true && (data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].finalAnnotation)===false){
+                    if ((data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].annotations)===true){
             
                         if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id].hasOwnProperty(name)===true){
                           //console.log(data.dat a.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name])
