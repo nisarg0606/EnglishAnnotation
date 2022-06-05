@@ -1,7 +1,7 @@
 proxy = 'https://englishannotation.el.r.appspot.com';
 
 async function checkLogin() {
-    var name = localStorage.getItem('name');
+    var name_ = localStorage.getItem('name');
     //let password = localStorage.getItem('password');
     //let isAdmin = localStorage.getItem('isAdmin');
 
@@ -17,6 +17,7 @@ async function checkLogin() {
         body.style.display = 'block';
         displayTweetForAnnotate();
     }
+    document.getElementById("username").innerHTML = "Welcome, " + name_;
 }
 
 async function displayTweetForAnnotate() {
@@ -37,14 +38,14 @@ async function displayTweetForAnnotate() {
         // console.log(datas)
         tab_1 = ``
         for (let i=0;i<total_tweet;i++){
-            console.log(i,data.data.tweets[i].tweet_id)
-			console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].annotations)
+      //       console.log(i,data.data.tweets[i].tweet_id)
+			// console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].annotations)
       if (data.data.tweets[i].assignedTo.slice(0,2).includes(name)){
 			if ((data.data.tweets[i].tweet_id in data.data.tweets[i].annotations)===true ){
 				
-				console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id])
+				// console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id])
                 if (data.data.tweets[i].annotations[data.data.tweets[i].tweet_id].hasOwnProperty(name)===true){
-                  console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name])
+                  // console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name])
                   if (data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name] === "HOF" ) {
                     // || data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name] === "CHOF" 
                     innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i><label class="btn btn-danger form-check-label mr-3">
@@ -105,15 +106,15 @@ async function displayTweetForAnnotate() {
             }
             
             if(data.data.tweets[i].assignedTo.slice(2,3).includes(name)){ 
-              console.log("3rd annotator",data.data.tweets[i].tweet)
+              // console.log("3rd annotator",data.data.tweets[i].tweet)
               
               if (((data.data.tweets[i].tweet_id in data.data.tweets[i].conflictedTweets)===true) && ((data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)===false)){
-                tab_1+=`<br/><h1 align="center">Third Annotator</h1>`  
+                // tab_1+=`<br/><h1 align="center">Third Annotator</h1>`  
                 if ((data.data.tweets[i].tweet_id in data.data.tweets[i].annotations)===true ){
 				
-                  console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id])
+                  // console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id])
                           if (data.data.tweets[i].annotations[data.data.tweets[i].tweet_id].hasOwnProperty(name)===true){
-                            console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name])
+                            // console.log(data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name])
                             if (data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name] === "HOF" ) {
                               // || data.data.tweets[i].annotations[data.data.tweets[i].tweet_id][name] === "CHOF" 
                               innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i><label class="btn btn-danger form-check-label mr-3">
@@ -171,8 +172,13 @@ async function displayTweetForAnnotate() {
                       }
               }
             }
-            document.getElementById('top_tweet').innerHTML = tab_1;
+            
          }
+         if(tab_1===``){
+           tab_1=`<h2>Please wait for admin to assign you tweets </h2>`
+        }
+        document.getElementById('top_tweet').innerHTML = tab_1;
+         
         // if(data.data.tweets[i].tweet_id in data.data.tweets[i].assignedTo.slice(2).includes(name)){
           
 
@@ -191,7 +197,7 @@ function logout() {
 
 
 async function addLabel(id,tid, label) {
-    console.log(id + ' ' + label)
+    // console.log(id + ' ' + label)
     var details={
       "main_tweet_id": id,
       "tweet_id": tid,

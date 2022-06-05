@@ -1,7 +1,7 @@
 proxy = 'https://englishannotation.el.r.appspot.com';
 
 async function checkLogin() {
-  var name = localStorage.getItem('name');
+  var name_ = localStorage.getItem('name');
   //let password = localStorage.getItem('password');
   //let isAdmin = localStorage.getItem('isAdmin');
 
@@ -16,9 +16,10 @@ async function checkLogin() {
       body.style.display = 'block';
       displayTweetForAnnotate();
   }
+  document.getElementById("username").innerHTML = "Welcome, " + name_;
 }
 async function tfdisplayTweetForAnnotate(tweet_id_) {
-  console.log("third and fourth annotator")
+  // console.log("third and fourth annotator")
   var name = localStorage.getItem('name')
   localStorage.setItem('main_tweet_id_',tweet_id_);
     
@@ -42,13 +43,13 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
           // console.log(datas)
           tab_1 = ``
        var i=data.data.tweets.map((o) => o.tweet_id).indexOf(tweet_id_)
-          console.log(tweet_id_)
-          console.log(i)
-          console.log(data.data.tweets[i].tweet_id)
-    console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
+    //       console.log(tweet_id_)
+    //       console.log(i)
+    //       console.log(data.data.tweets[i].tweet_id)
+    // console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
     if ((data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)===true ){
       
-      console.log(data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id])
+      // console.log(data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id])
       if (data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id] === "HOF") {
                   innerhtml = `<h4><span class="badge badge-danger">HOF</span></h4>`
              } else {
@@ -59,25 +60,14 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
           document.getElementById('top_tweet').innerHTML = tab_1; 
           tab=``
           for (comm_key in data.data.tweets[i].comments) {
+            tab_rep=``
             // console.log(data.data.tweets[i]);
               if ((data.data.tweets[i].comments[comm_key].tweet_id in data.data.tweets[i].finalAnnotation)===true ){
-                console.log("in")
+                // console.log("in")
                 if(data.data.tweets[i].comments[comm_key].replies.length>0)
                 {for (let rep_key=0;rep_key<data.data.tweets[i].comments[comm_key].replies.length;rep_key++){
-                  console.log(data.data.tweets[i].comments[comm_key].tweet_id);
+                  // console.log(data.data.tweets[i].comments[comm_key].tweet_id);
                   if ((data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].conflictedTweets)===true && (data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].finalAnnotation)===false){
-                    if(data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].annotations===true){
-                      if(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id].hasOwnProperty(name)){
-                      if(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "SHOF"){
-                        innerhtml = `<h4><span class="badge badge-danger">SHOF</span></h4>`
-                      }
-                      else if(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "CHOF"){
-                        innerhtml = `<h4><span class="badge badge-danger">CHOF</span></h4>`
-                      }else{
-                        innerhtml = `<h4><span class="badge badge-success">NOT</span></h4>`
-                      }
-                      tab += `<br/><li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-primary">
-                  <span class="w-90" id="main_tweet" >${data.data.tweets[i].comments[comm_key].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li> `
                       if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id][name] === "SHOF") {
                         innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i>
                         <label class="btn btn-danger form-check-label mr-3">
@@ -107,7 +97,7 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
                         <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id}" value="NONE"> NONE
                       </label>`
                     }
-                      else{
+                      else if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id][name] === "NONE"){
                         innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i>
                         
                         <label class="btn btn-danger form-check-label mr-3">
@@ -121,22 +111,8 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
                           <label class="btn btn-success form-check-label">
                         <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id}" value="NONE" checked> NONE
                       </label>`
-                    }
-                    tab += `<li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-success">
-                    <span class="w-90" id="main_tweet" >${data.data.tweets[i].comments[comm_key].replies[rep_key].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li> `
-
                     }else{
-                      if(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "SHOF"){
-                        innerhtml = `<h4><span class="badge badge-danger">SHOF</span></h4>`
-                      }
-                      else if(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "CHOF"){
-                        innerhtml = `<h4><span class="badge badge-danger">CHOF</span></h4>`
-                      }else{
-                        innerhtml = `<h4><span class="badge badge-success">NOT</span></h4>`
-                      }
-                      tab += `<br/><li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-primary">
-                      <span class="w-90" id="main_tweet" >${data.data.tweets[i].comments[comm_key].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li> `
-
+                      
                       innerhtml = `
                         <label class="btn btn-danger form-check-label mr-3">
                         <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id}" value="SHOF">
@@ -149,11 +125,30 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
                           <label class="btn btn-success form-check-label">
                         <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id}" value="NONE"> NONE
                       </label>`
-                      tab += `<li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-success">
+                      
+                    }
+                    tab_rep += `<li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-success">
                     <span class="w-90" id="main_tweet" >${data.data.tweets[i].comments[comm_key].replies[rep_key].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li> `
 
-                    }}
-                      console.log("Remove conflict")
+                    }
+                    
+
+
+                  }
+                  if (tab_rep !== ``){
+                    if(data.data.tweets[i].finalAnnotation[data.data.tweets[i].comments[comm_key].tweet_id] === "SHOF"){
+                      innerhtml = `<h4><span class="badge badge-danger">SHOF</span></h4>`
+                    }
+                    else if(data.data.tweets[i].finalAnnotation[data.data.tweets[i].comments[comm_key].tweet_id]=== "CHOF"){
+                      innerhtml = `<h4><span class="badge badge-danger">CHOF</span></h4>`
+                    }else{
+                      innerhtml = `<h4><span class="badge badge-success">NOT</span></h4>`
+                    }
+                    tab += `<br/><li class="list-group-item d-flex justify-content-between align-items-center input-group-prepend list-group-item-primary">
+                    <span class="w-90" id="main_tweet" >${data.data.tweets[i].comments[comm_key].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li> `
+                    tab+=tab_rep
+                  }
+                      // console.log("Remove conflict")
                      
                   }
                 }}
@@ -164,8 +159,8 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
       }
       
 }
-}
-}
+// }
+// }
 
 
 
@@ -195,13 +190,13 @@ async function displayTweetForAnnotate(tweet_id_) {
           // console.log(datas)
           tab_1 = ``
        var i=data.data.tweets.map((o) => o.tweet_id).indexOf(tweet_id_)
-          console.log(tweet_id_)
-          console.log(i)
-          console.log(data.data.tweets[i].tweet_id)
-    console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
+    //       console.log(tweet_id_)
+    //       console.log(i)
+    //       console.log(data.data.tweets[i].tweet_id)
+    // console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
     if ((data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)===true ){
       
-      console.log(data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id])
+      // console.log(data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id])
       if (data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id] === "HOF") {
                   innerhtml = `<h4><span class="badge badge-danger">HOF</span></h4>`
              } else {
@@ -212,7 +207,7 @@ async function displayTweetForAnnotate(tweet_id_) {
           document.getElementById('top_tweet').innerHTML = tab_1; 
           tab=``
           for (comm_key in data.data.tweets[i].comments) {
-            console.log(data.data.tweets[i]);
+            // console.log(data.data.tweets[i]);
               if ((data.data.tweets[i].comments[comm_key].tweet_id in data.data.tweets[i].finalAnnotation)===true ){
                 if ((data.data.tweets[i].comments[comm_key].replies.length)>0){
                     if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "SHOF") {
@@ -227,7 +222,7 @@ async function displayTweetForAnnotate(tweet_id_) {
                   <span class="w-90" id="main_tweet" >${data.data.tweets[i].comments[comm_key].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li> `
                 
                 for (rep_key in data.data.tweets[i].comments[comm_key].replies) {
-                  console.log(data.data.tweets[i]);
+                  // console.log(data.data.tweets[i]);
                     if ((data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].annotations)===true && (data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id in data.data.tweets[i].finalAnnotation)===false){
             
                         if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].replies[rep_key].tweet_id].hasOwnProperty(name)===true){
@@ -323,7 +318,11 @@ async function displayTweetForAnnotate(tweet_id_) {
        }
       //  tab +=`<br/>`
       
-    }document.getElementById("comments_replies").innerHTML = tab;
+    }
+    if(tab===``){
+      tab=`<h2>Please complete annotations of comments</h2>`
+   }
+    document.getElementById("comments_replies").innerHTML = tab;
   
   }
       
@@ -342,7 +341,7 @@ function logout() {
 
 async function addLabel(tid, label) {
   var id = localStorage.getItem('main_tweet_id_')
-    console.log(id + ' ' +tid+' '+ label)
+    // console.log(id + ' ' +tid+' '+ label)
     $.ajax({
         type: 'POST',
         url: proxy + '/tweets/submit',
@@ -421,7 +420,7 @@ async function display_tweets_by_user() {
   if (response.status === 200) {
       var data = await response.json();
       const total_tweet =data.data.tweets.length
-          console.log(data)
+          // console.log(data)
       if (total_tweet=== 0) {
           tab = `<h1 class="my-3">No Assigned Tweets.......!</h1>`
       } else {
@@ -492,8 +491,10 @@ async function display_tweets_by_user() {
               
               // if (flag=== true){
               for(let j=0;j<data.data.tweets[i].comments.length;j++){
+                if ((data.data.tweets[i].comments[j].tweet_id in data.data.tweets[i].finalAnnotation)===true){
                 if (data.data.tweets[i].comments[j].replies.length>0){
-                  for(let rep_key=0;rep_key<data.data.tweets[i].comments[j].replies.length;rep_key++){
+                  var flag=true
+                for(let rep_key=0;rep_key<data.data.tweets[i].comments[j].replies.length;rep_key++){
                 if (((data.data.tweets[i].comments[j].replies[rep_key].tweet_id in data.data.tweets[i].conflictedTweets)===true) && ((data.data.tweets[i].comments.tweet_id in data.data.tweets[i].finalAnnotation)===false)){
                   tab += `<tr>
                   <td class="align-middle">${data.data.tweets[i].story}</td>
@@ -509,10 +510,16 @@ async function display_tweets_by_user() {
                   // }
                   tab += icon
                   tab += btn
+                  flag=false
                   break
                 }
               }
-              }
+              if(!flag){
+                break
+              }  
+            }
+            
+            }
             }
             // }
             }}
@@ -537,7 +544,9 @@ async function display_tweets_by_user() {
 
               // if(flag===true){
               for(let j=0;j<data.data.tweets[i].comments.length;j++){
+                if ((data.data.tweets[i].comments[j].tweet_id in data.data.tweets[i].finalAnnotation)===true){
                 if (data.data.tweets[i].comments[j].replies.length>0){
+                  var flag=true
                   for(let rep_key=0;rep_key<data.data.tweets[i].comments[j].replies.length;rep_key++){
 
                 if(data.data.tweets[i].comments[j].replies[rep_key].tweet_id in data.data.tweets[i].annotations){
@@ -557,10 +566,17 @@ async function display_tweets_by_user() {
                   // }
                   tab += icon
                   tab += btn
+                  flag=false
                   break
                 }
 
-              }}}}}
+              }}}
+              if(!flag){
+                break
+              }
+            }
+            }
+            }
             // }
             }}
          

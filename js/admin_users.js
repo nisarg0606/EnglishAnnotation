@@ -80,7 +80,7 @@ async function display_users() {
 
         // console.log(data)
         for (usr in data) {
-            console.log(data[usr])
+            // console.log(data[usr])
             if (data[usr].role === 1) {
                 icon = '<i class="fas fa-user-cog mr-3"></i>'
             } else {

@@ -1,7 +1,7 @@
 proxy = 'https://englishannotation.el.r.appspot.com';
 
 async function checkLogin() {
-    var name = localStorage.getItem('name');
+    var name_ = localStorage.getItem('name');
     //let password = ('password');
     //let isAdmin = localStorage.getItem('isAdmin');
 
@@ -16,10 +16,11 @@ async function checkLogin() {
         body.style.display = 'block';
         displayTweetForAnnotate();
     }
+    document.getElementById("username").innerHTML = "Welcome, " + name_;
 }
 
 async function tfdisplayTweetForAnnotate(tweet_id_) {
-  console.log("third and fourth annotator")
+  // console.log("third and fourth annotator")
   var name = localStorage.getItem('name')
   localStorage.setItem('main_tweet_id_',tweet_id_);
     
@@ -41,10 +42,10 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
             const total_tweet =data.data.tweets.length
             tab_1 = ``
             var i=data.data.tweets.map((o) => o.tweet_id).indexOf(tweet_id_)
-            console.log(tweet_id_)
-            console.log(i)
-            console.log(data.data.tweets[i].tweet_id)
-			      console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
+            // console.log(tweet_id_)
+            // console.log(i)
+            // console.log(data.data.tweets[i].tweet_id)
+			      // console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
             if ((data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)===true ){
               if (data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id] === "HOF") {
                         innerhtml = `<h4><span class="badge badge-danger">HOF</span></h4>`
@@ -56,14 +57,14 @@ async function tfdisplayTweetForAnnotate(tweet_id_) {
          
             }
             for (comm_key in data.data.tweets[i].comments) {
-              console.log(data.data.tweets[i]);
+              // console.log(data.data.tweets[i]);
                 if ((data.data.tweets[i].comments[comm_key].tweet_id in data.data.tweets[i].conflictedTweets)===true && (data.data.tweets[i].comments[comm_key].tweet_id in data.data.tweets[i].finalAnnotation)===false){
-                  console.log("Remove conflict")
+                  // console.log("Remove conflict")
 
                   if ((data.data.tweets[i].comments[comm_key].tweet_id in data.data.tweets[i].annotations)===true){
 				
                     if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id].hasOwnProperty(name)===true){
-                      console.log(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name])
+                      // console.log(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name])
                       if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "SHOF") {
                         innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i><label class="btn btn-danger form-check-label mr-3">
                         <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${data.data.tweets[i].comments[comm_key].tweet_id}" value="SHOF" checked>
@@ -172,14 +173,14 @@ async function displayTweetForAnnotate(tweet_id_) {
             // }
             tab_1 = ``
          var i=data.data.tweets.map((o) => o.tweet_id).indexOf(tweet_id_)
-            console.log(tweet_id_)
-            console.log(i)
-            console.log(data.data.tweets[i].tweet_id)
-			console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
+      //       console.log(tweet_id_)
+      //       console.log(i)
+      //       console.log(data.data.tweets[i].tweet_id)
+			// console.log(data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)
       // if (data.data.tweets[i].assignedTo.slice(0,2).includes(name)){
 			if ((data.data.tweets[i].tweet_id in data.data.tweets[i].finalAnnotation)===true ){
 				
-				console.log(data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id])
+				// console.log(data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id])
 				if (data.data.tweets[i].finalAnnotation[data.data.tweets[i].tweet_id] === "HOF") {
                     innerhtml = `<h4><span class="badge badge-danger">HOF</span></h4>`
                } else {
@@ -189,11 +190,11 @@ async function displayTweetForAnnotate(tweet_id_) {
             <span class="w-90" id="main_tweet">${data.data.tweets[i].tweet}</span><div class="btn-group" data-toggle="buttons">` + innerhtml + `</div></li>`
              
             for (comm_key in data.data.tweets[i].comments) {
-              console.log(data.data.tweets[i]);
+              // console.log(data.data.tweets[i]);
                 if ((data.data.tweets[i].comments[comm_key].tweet_id in data.data.tweets[i].annotations)===true){
 				
                     if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id].hasOwnProperty(name)===true){
-                      console.log(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name])
+                      // console.log(data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name])
                       if (data.data.tweets[i].annotations[data.data.tweets[i].comments[comm_key].tweet_id][name] === "SHOF") {
                         innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i><label class="btn btn-danger form-check-label mr-3">
                         <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${data.data.tweets[i].comments[comm_key].tweet_id}" value="SHOF" checked>
@@ -295,7 +296,7 @@ function logout() {
 
 async function addLabel(tid, label) {
   var id = localStorage.getItem('main_tweet_id_')
-    console.log(id + ' ' +tid+' '+ label)
+    // console.log(id + ' ' +tid+' '+ label)
     $.ajax({
         type: 'POST',
         url: proxy + '/tweets/submit',
@@ -311,7 +312,7 @@ async function addLabel(tid, label) {
         async: true,
         success: function(response) {
             myparent = $('[name=' + tid + ']').parent().parent();
-            console.log(myparent)
+            // console.log(myparent)
             if (label === "SHOF") {
               innerhtml = `<i class="mr-3 fa fa-check" aria-hidden="true"></i> <label class="btn btn-danger form-check-label mr-3">
           <input class="form-check-input" onchange="addLabel(this.name,this.value)" type="radio" name="${tid}" value="SHOF" checked>
@@ -371,7 +372,7 @@ async function display_tweets_by_user() {
   if (response.status === 200) {
       var data = await response.json();
       const total_tweet =data.data.tweets.length
-          console.log(data)
+          // console.log(data)
       if (total_tweet=== 0) {
           tab = `<h1 class="my-3">No Assigned Tweets.......!</h1>`
       } else {

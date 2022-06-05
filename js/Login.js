@@ -4,7 +4,7 @@ async function performLogin() {
     //preventDefault()
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
-	console.log(email,password);
+	// console.log(email,password);
     var response = await fetch(proxy+'/login',{
         method: 'POST',
         headers: {
@@ -39,7 +39,7 @@ async function performLogin() {
         })
     } else if (response.status === 400) {
         Swal.fire({
-            title: 'Incorrect password',
+            title: 'Incorrect password or Username',
             icon: 'error',
         })
     } else {
