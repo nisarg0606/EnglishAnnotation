@@ -1,4 +1,5 @@
-proxy = 'https://englishannotation.el.r.appspot.com';
+// proxy = 'https://englishannotation.el.r.appspot.com';
+proxy = 'https://hasoc2023.onrender.com'
 
 async function add_user() {
     Swal.fire({
@@ -124,6 +125,7 @@ async function display_users() {
 function annotate(res,id){
 	for (i in res){
 		if(i.tweet_id===id){
+            console.log(i.annotated + " " + i.tweet_id + " " + i);
 			return i.annotated
 		}
 	}
@@ -169,7 +171,7 @@ async function display_tweets_by_users(id) {
              <td class="align-middle">${data.tweets[key].tweet}</td>
              <td class="align-middle">
                  <div class=" container justify-content-center">`
-                 if (annotate(data.assigned,data.tweets[key].tweet_id)===true) {
+                 if (data.tweets[key].annotated === "true") {
                      icon = `<i class="fas fa-check-circle mr-3 fa-2x">`
                  } else { icon = `<i class="fas fa-clock fa-2x"></i>` }
                  tab += icon

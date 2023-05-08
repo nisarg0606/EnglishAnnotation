@@ -1,4 +1,5 @@
-proxy = 'https://englishannotation.el.r.appspot.com';
+// proxy = 'https://englishannotation.el.r.appspot.com';
+proxy = 'https://hasoc2023.onrender.com'
 
 async function show_tweets_index() {
     const url = proxy + '/story/list';
